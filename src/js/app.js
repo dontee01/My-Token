@@ -48,6 +48,7 @@ App = {
     var toAddress = $('#TTTransferAddress').val();
 
     console.log('Transfer ' + amount + ' TT to ' + toAddress);
+    console.log(typeof(amount));
 
     var TutTokenInstance;
 

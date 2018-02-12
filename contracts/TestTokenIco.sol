@@ -59,11 +59,13 @@ contract TestTokenIco is PausableToken {
     uint256 weiAmount = msg.value;
 
     // calculate token amount to be created
-    uint256 tokens = weiAmount.mul(rate);
+    uint256 tokens = weiAmount * rate;
+    // uint256 tokens = weiAmount.mul(rate);
     // uint256 tokens = 700;
 
     // update state
-    weiRaised = weiRaised.add(weiAmount);
+    weiRaised = weiRaised + weiAmount;
+    // weiRaised = weiRaised.add(weiAmount);
 
     transferToken(beneficiary, tokens);
     TokenPurchase(msg.sender, beneficiary, weiAmount, tokens);
