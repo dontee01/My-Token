@@ -13,12 +13,15 @@ contract TestTokenIco is PausableToken {
     string public symbol = "TST";
     uint256 public decimals = 18;
 
-    uint256 public totalSupply = 100 * (10 ** decimals);
+    uint256 public totalSupply = 500000000 * (10 ** decimals);
 
     address public fundsWallet;
 
     uint256 public tokens;
-    uint256 public rate = 500;
+    // 1cent = 100000 using 1ETH => $1000
+    // 2cents = 100000/2
+    // 5cents = 100000/5
+    uint256 public rate = 100000;
     
     // amount of raised money in wei
     uint256 public weiRaised;
@@ -58,14 +61,20 @@ contract TestTokenIco is PausableToken {
 
     uint256 weiAmount = msg.value;
 
+    // uint256 etherAmount = weiAmount / (1 * (10 ** decimals));
+
     // calculate token amount to be created
-    uint256 tokens = weiAmount * rate;
+    // uint256 weiTokens = weiAmount * rate;
+    uint256 tokens = weiAmount.mul(rate);
+    
+    // uint256 tokens = weiTokens.div( (1 * (10 ** decimals)) );
+    require(tokens > 0);
     // uint256 tokens = weiAmount.mul(rate);
     // uint256 tokens = 700;
 
     // update state
-    weiRaised = weiRaised + weiAmount;
-    // weiRaised = weiRaised.add(weiAmount);
+    // weiRaised = weiRaised + weiAmount;
+    weiRaised = weiRaised.add(weiAmount);
 
     transferToken(beneficiary, tokens);
     TokenPurchase(msg.sender, beneficiary, weiAmount, tokens);

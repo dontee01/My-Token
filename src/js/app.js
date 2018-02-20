@@ -76,7 +76,7 @@ App = {
   buyIco: function() {
     event.preventDefault();
 
-    var amt = parseInt($('#TTPurchaseAmount').val());
+    var amt = parseFloat($('#TTPurchaseAmount').val());
     // console.log(amount);
     // var toAddress = $('#TTTransferAddress').val();
 
@@ -93,6 +93,7 @@ App = {
       var account = web3.eth.defaultAccount;
       console.log(account);
       var amount = web3.toWei(amt, "ether");
+      console.log('Wei Value ' + amount + ' worth of TT');
 
       App.contracts.TutToken.deployed().then(function(instance) {
         TutTokenInstance = instance;
@@ -127,7 +128,16 @@ App = {
         return TutTokenInstance.balanceOf(account);
       }).then(function(result) {
         balance = result.c[0];
+        console.log(result);
+        console.log(result.c.length);
 
+        if (result.c.length > 1)
+        {
+          balance = result.c[0]+''+result.c[1];
+        }
+        // $('#TTBalance').text(web3.utils.toBN(balance).toString());
+        // console.log(web3.utils.isBigNumber(balance))
+        var a = parseInt(balance, 10);
         $('#TTBalance').text(balance);
       }).catch(function(err) {
         console.log(err.message);

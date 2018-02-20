@@ -8,7 +8,7 @@ module.exports = function(deployer, network, accounts) {
     // 20 days
     const endTime = startTime + (86400 * 20);
     const rate = new web3.BigNumber(1000);
-    const initialSupply = 10000;
+    const initialSupply = 0;
     const wallet = accounts[0];
 
     // deployer.deploy(TutTokenq).then(function() {
